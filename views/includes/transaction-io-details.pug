@@ -93,7 +93,12 @@ div(class="row monospace")
 
 								else if (vout.scriptPubKey.asm && vout.scriptPubKey.asm.startsWith('OP_RETURN '))
 									span(class="monospace") OP_RETURN: 
-									span(class="monospace text-muted") #{utils.hex2ascii(vout.scriptPubKey.asm.substring("OP_RETURN ".length))}
+									-var op_r = utils.hex2ascii(vout.scriptPubKey.asm.substring("OP_RETURN ".length))
+									if (op_r.substring(0,5)=="AIBC_")
+											a(href=("http://74.95.7.251:82/aibc/browseImages.php?hash="+op_r.substring(5)+"&visualize=1"))
+													span(class="monospace text-muted") #{op_r}
+									else
+										span(class="monospace text-muted") #{op_r}	
 
 								else
 									span(class="monospace")
